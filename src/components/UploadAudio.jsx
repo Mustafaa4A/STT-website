@@ -6,8 +6,11 @@ import {
   CardBody
 } from "reactstrap";
 import { useDropzone } from 'react-dropzone';
+import { useNavigate } from 'react-router-dom';
 
 const UploadAudio = () => {
+  const navigate = useNavigate();
+
    const { getRootProps, getInputProps } = useDropzone({
      accept: {
       'audio/*':['.wav', '.mp3', '.mp4', '.caf', '.afif', '.avi']
@@ -19,9 +22,15 @@ const UploadAudio = () => {
   const [ file, setFile ] = useState(null);
   
 
-  const onDropFile = (file) => {
-    setFile(file)
-    console.log(file)
+  const onDropFile = (audio) => {
+    setFile(audio)
+    
+    navigate(
+      "/transcribe/audio", 
+      {
+        state:audio
+      }
+    )
   }
 
   return (

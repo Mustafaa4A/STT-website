@@ -45,3 +45,21 @@
     box-sizing: border-box;
     z-index: 1;
 }
+
+
+.paper .paper-footer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%; 
+    position: absolute;
+    bottom: 23px;
+    text-align: center;
+}
+
+.paper .paper-footer P{
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(92, 92, 245);
+}

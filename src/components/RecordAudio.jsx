@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
+import { useNavigate } from 'react-router-dom';
 
 // reactstrap components
 import {
@@ -11,7 +12,7 @@ import {
 
 const RecordAudio = () => {
   const [collapseOpen, setCollapseOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleModal = () => {
     setCollapseOpen(!collapseOpen);
   };
@@ -62,6 +63,21 @@ const RecordAudio = () => {
   const clear = () => {
     pauseAudio();
     clearBlobUrl();
+  }
+
+  const submit = async () => {
+    const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
+    const audiofile = new File([audioBlob], `record.wav`, {
+      type: "audio/wav",
+    });
+
+    return
+    navigate(
+      "/transcribe/audio", 
+      {
+        state:audiofile
+      }
+    )
   }
 
   return (
@@ -130,9 +146,7 @@ const RecordAudio = () => {
               <div className="text-center">
               </div>
             </div>
-            <Button disabled={!mediaBlobUrl} color="primary" className="w-100" onClick={() => {
-              console.log(mediaBlobUrl)
-            }}>continue</Button>
+            <Button disabled={!mediaBlobUrl} color="primary" className="w-100" onClick={submit}>continue</Button>
           </CardBody>
       </Card>
       </Modal>
