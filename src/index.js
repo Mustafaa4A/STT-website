@@ -30,6 +30,7 @@ import Profile from "views/examples/Profile.js";
 import Register from "views/examples/Register.js";
 import HomePage from "views/HomePage";
 import Transcribe from "views/Transcribe";
+import TranscribeAudio from "views/TranscribeAudio";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -66,6 +67,11 @@ root.render(
         path="/transcribe"
         exact
         render={(props) => <Transcribe {...props} />}
+      />
+      <Route
+        path="/transcribe/audio"
+        exact
+        render={(props) => <TranscribeAudio {...props} />}
       />
       <Redirect to="/" />
     </Switch>

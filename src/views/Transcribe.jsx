@@ -1,8 +1,6 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
-import Main from 'components/Main';
 
-import classnames from "classnames";
 
 // reactstrap components
 import {
@@ -14,24 +12,10 @@ import {
   Col
 } from "reactstrap";
 import Footer from 'components/Footer';
-import Dropzone from 'react-dropzone';
 import UploadAudio from 'components/UploadAudio';
 import RecordAudio from 'components/RecordAudio';
 
 const Transcribe = () => {
-
-  const getUploadParams = () => {
-    return { url: 'https://httpbin.org/post' }
-  }
-
-  const handleChangeStatus = ({ meta }, status) => {
-    console.log(status, meta)
-  }
-
-  const handleSubmit = (files, allFiles) => {
-    console.log(files.map(f => f.meta))
-    allFiles.forEach(f => f.remove())
-  }
   return (
     <>
       <Navigation />

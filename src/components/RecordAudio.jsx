@@ -11,7 +11,6 @@ import {
 
 const RecordAudio = () => {
   const [collapseOpen, setCollapseOpen] = useState(false);
-  const [meadia, setMedia] = useState(null);
 
   const toggleModal = () => {
     setCollapseOpen(!collapseOpen);
@@ -29,7 +28,7 @@ const RecordAudio = () => {
   const [recording, setRecording] = useState(false);
   const [playing, setPlaying] = useState(false);
 
-  const startRecord = async () => {
+  const startRecord = () => {
     navigator.permissions.query({ name: 'microphone' }).then(({ state }) => {
       if (state === 'granted') {
         startRecording();
