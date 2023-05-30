@@ -13,11 +13,11 @@ import Paper from 'components/Paper';
 import { AudioPlayerControlSprite, Audio } from 'react-audio-player-pro';
 import  'react-audio-player-pro/dist/style.css';
 import { useLocation, useNavigate } from "react-router-dom"
-import Audi from './sample.mp3';
+
 
 const TranscribeAudio = () => {
   const navigate = useNavigate();
-  const { state: audio } = useLocation()
+  let { state: audio } = useLocation()
   const [blob, setBlob] = useState();
 
   const  formatBytes = (bytes)=> {
@@ -39,7 +39,7 @@ const TranscribeAudio = () => {
       reader.readAsArrayBuffer(audio);
       reader.onloadend = () => {
         const buffer = new Uint8Array(reader.result);
-        const audioBlob = new Blob([buffer], { type: 'audio/mp3' });
+        const audioBlob = new Blob([buffer], { type: 'audio/wav' });
         const audioURL = window.URL.createObjectURL(audioBlob);
         setBlob(audioURL)
       };
@@ -51,9 +51,12 @@ const TranscribeAudio = () => {
       navigate("/transcribe");
     }
     convertAudio();
-
-
   },[audio]);
+
+  const goBack = () => {
+    audio = undefined;
+    navigate("/transcribe");
+  }
 
   return (
     <>
@@ -84,7 +87,7 @@ const TranscribeAudio = () => {
                     />
                   </div>
                   <div className='d-flex justify-content-center'>
-                  <Button className="btn-outline-danger">Discard</Button>
+                  <Button className="btn-outline-danger" onClick={goBack}>Discard</Button>
                     <Button color="primary" className="w-45">Transcribe</Button>
                    </div>
                 </div>
