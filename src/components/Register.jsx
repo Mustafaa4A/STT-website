@@ -16,8 +16,16 @@ import {
   InputGroupText,
   InputGroup,
 } from "reactstrap";
+import { useForm } from "react-hook-form";
 
-const Register = ({focused}) => {
+const Register = () => {
+  const {  register, handleSubmit, formState: { errors }} = useForm();
+
+  
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
     <div className="modal-body p-0">
       <Card className="bg-secondary shadow border-0">
@@ -25,15 +33,8 @@ const Register = ({focused}) => {
           <h2 className='text-uppercase text-center' >Sign up</h2>
         </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
-            {/* <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
-            </div> */}
-          <Form role="form">
-            <FormGroup
-                className={classnames("mb-3", {
-                  focused: focused
-                })}
-              >
+          <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+            <FormGroup >
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
@@ -43,21 +44,12 @@ const Register = ({focused}) => {
                   <Input
                     placeholder="Full Name"
                     type="text"
-                    // onFocus={(e) =>
-                    //   this.setState({ emailFocused: true })
-                    // }
-                    // onBlur={(e) =>
-                    //   this.setState({ emailFocused: false })
-                    // }
+                    name="fullname"
+                    {...register("fullname")}
                   />
                 </InputGroup>
             </FormGroup>
-            
-              <FormGroup
-                className={classnames("mb-3", {
-                  focused: focused
-                })}
-              >
+              <FormGroup>
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
@@ -66,20 +58,13 @@ const Register = ({focused}) => {
                   </InputGroupAddon>
                   <Input
                     placeholder="Email"
-                    type="email"
-                    // onFocus={(e) =>
-                    //   this.setState({ emailFocused: true })
-                    // }
-                    // onBlur={(e) =>
-                    //   this.setState({ emailFocused: false })
-                    // }
+                  type="email"
+                  name="email"
+                    {...register("email")}
                   />
                 </InputGroup>
               </FormGroup>
-              <FormGroup
-                className={classnames({
-                  focused: focused
-                })}
+              <FormGroup 
               >
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -91,20 +76,13 @@ const Register = ({focused}) => {
                     placeholder="Password"
                     type="password"
                     autoComplete="off"
-                    // onFocus={(e) =>
-                    //   this.setState({ passwordFocused: true })
-                    // }
-                    // onBlur={(e) =>
-                    //   this.setState({ passwordFocused: false })
-                    // }
+                    name="password"
+                    {...register("password")}
+                  
                   />
                 </InputGroup>
             </FormGroup>
-            <FormGroup
-                className={classnames({
-                  focused: focused
-                })}
-              >
+            <FormGroup>
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
@@ -115,17 +93,13 @@ const Register = ({focused}) => {
                     placeholder="Confirm Password"
                     type="password"
                     autoComplete="off"
-                    // onFocus={(e) =>
-                    //   this.setState({ passwordFocused: true })
-                    // }
-                    // onBlur={(e) =>
-                    //   this.setState({ passwordFocused: false })
-                    // }
+                    name="confirm"
+                    {...register("confirm")}
                   />
                 </InputGroup>
               </FormGroup>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+              <Button className="my-4" color="primary" type="submit">
                   Sign UP
                 </Button>
               </div>

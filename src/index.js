@@ -23,11 +23,6 @@ import "assets/vendor/nucleo/css/nucleo.css";
 import "assets/vendor/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss?v1.1.0";
 
-import Index from "views/Index.js";
-import Landing from "views/examples/Landing.js";
-import Login from "views/examples/Login.js";
-import Profile from "views/examples/Profile.js";
-import Register from "views/examples/Register.js";
 import HomePage from "views/HomePage";
 import Transcribe from "views/Transcribe";
 import TranscribeAudio from "views/TranscribeAudio";
@@ -37,12 +32,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/landing-page" element={<Landing />} />
-        <Route path="/login-page" element={<Login />} />
-        <Route path="/profile-page" element={<Profile />} />
-        <Route path="/register-page" element={<Register />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/transcribe" element={<Transcribe />} />
         <Route path="/transcribe/audio" element={<TranscribeAudio />} />
         <Route path="*" element={<Navigate to="/" />} />

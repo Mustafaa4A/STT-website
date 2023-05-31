@@ -47,15 +47,22 @@ const TranscribeAudio = () => {
   }
   
   useEffect(() => {
+    document.title = audio.name;
     if (!audio) {
       navigate("/transcribe");
     }
     convertAudio();
+
+    return audio = undefined;
   },[audio]);
 
   const goBack = () => {
     audio = undefined;
     navigate("/transcribe");
+  }
+
+  const transcribe = () => {
+    
   }
 
   return (
@@ -66,7 +73,7 @@ const TranscribeAudio = () => {
           <div className="shape shape-style-4 shape-default"/>
           <Row className="mb-sm-4">
             <Col md="1" sm="10"></Col>
-              <Col md="4" sm="12" className="bg-white">
+              <Col md="4" sm="10" xs="10" className="bg-white m-auto">
               <div className='d-flex flex-column justify-content-center' style={{minHeight:"70vh"}}>
                 <h3 class="my-4 text-center text-uppercase">Speech to Text</h3>
                 <div>
@@ -93,7 +100,7 @@ const TranscribeAudio = () => {
                 </div>
               </div>
               </Col>
-              <Col md="7" sm="12">
+              <Col md="7" sm="12" className="mt-4">
                 <Paper></Paper>
               </Col>
             </Row>

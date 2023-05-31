@@ -9,7 +9,7 @@ import {
   CardBody,
   Modal
 } from "reactstrap";
-import * as lamejs from 'lamejs';
+import lamejs from 'lamejs';
 
 const RecordAudio = () => {
   const [collapseOpen, setCollapseOpen] = useState(false);
@@ -66,30 +66,12 @@ const RecordAudio = () => {
     clearBlobUrl();
   }
 
-  const  convertBlobToMp3 = (blob, callback)=> {
-     const reader = new FileReader();
-     reader.onload = function (event) {
-       const audioData = new Float32Array(event.target.result);
-       const mp3encoder = new lamejs.Mp3Encoder(1, 44100, 128);
-       const mp3Data = mp3encoder.encodeBuffer(audioData);
-       const mp3Blob = new Blob([new Uint8Array(mp3Data)], { type: 'audio/mp3' });
-       callback(mp3Blob);
-       console.log(mp3Blob)
-     };
-     reader.readAsArrayBuffer(blob);
-   }
-
-
   const submit = async () => {
     const audioBlob = await fetch(mediaBlobUrl).then((r) => r.blob());
     const audiofile = new File([audioBlob], `record.wav`, {
       type: "audio/wav",
     });
-
-    // convertBlobToMp3(audiofile, (audioFile) => {
-    //   console.log(audioFile);
-    // })
-
+    
     navigate(
       "/transcribe/audio", 
       {
