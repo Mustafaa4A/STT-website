@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navigation from '../components/Navigation';
 
 
@@ -13,12 +13,16 @@ import Paper from 'components/Paper';
 import { AudioPlayerControlSprite, Audio } from 'react-audio-player-pro';
 import  'react-audio-player-pro/dist/style.css';
 import { useLocation, useNavigate } from "react-router-dom"
+import { transcribeAudio } from 'api/transcribe';
+import { toast } from 'react-toastify';
 
 
 const TranscribeAudio = () => {
   const navigate = useNavigate();
   let { state: audio } = useLocation()
   const [blob, setBlob] = useState();
+  const text = useRef(null);
+  const [output, setOutput] = useState(null);
 
   const  formatBytes = (bytes)=> {
     if (bytes < 1024) {
@@ -53,7 +57,6 @@ const TranscribeAudio = () => {
     }
     convertAudio();
 
-    return audio = undefined;
   },[audio]);
 
   const goBack = () => {
@@ -62,7 +65,15 @@ const TranscribeAudio = () => {
   }
 
   const transcribe = () => {
-    
+    // text.current.value = "I'm here to help you";
+    // console.log(text.current)
+    transcribeAudio(audio)
+      .then(response => {
+        setOutput(response.data)
+      })
+      .catch(error => {
+        toast.error(error.message);
+    });
   }
 
   return (
@@ -95,13 +106,13 @@ const TranscribeAudio = () => {
                   </div>
                   <div className='d-flex justify-content-center'>
                   <Button className="btn-outline-danger" onClick={goBack}>Discard</Button>
-                    <Button color="primary" className="w-45">Transcribe</Button>
+                    <Button color="primary" className="w-45" onClick={transcribe}>Transcribe</Button>
                    </div>
                 </div>
               </div>
               </Col>
               <Col md="7" sm="12" className="mt-4">
-                <Paper></Paper>
+              <Paper>{output && output}</Paper>
               </Col>
             </Row>
           

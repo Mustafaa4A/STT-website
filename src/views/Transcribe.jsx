@@ -4,9 +4,6 @@ import Navigation from '../components/Navigation';
 
 // reactstrap components
 import {
-  Card,
-  CardBody,
-  Button,
   Container,
   Row,
   Col
@@ -35,7 +32,10 @@ const Transcribe = () => {
               <Container className="py-lg-md d-flex flex-column justify-content-center align-items-center">
                 <div className="col px-0 mt-5 text-center">
                   <h1 className='text-white'>Online Audio to Text Converter</h1>
-                  <p className='text-white h6'>Convert speech to text in a few clicks. Your best online free transcription tool.</p>
+              <p className='text-white h6'>
+                    Convert speech to text in a few clicks. 
+                Your best online free transcription tool.
+              </p>
             </div>
           </Container>
           <Container>

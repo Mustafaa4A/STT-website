@@ -1,12 +1,13 @@
+import { useRef } from "react";
 import "../assets/css/paper.css";
 
-const Paper = ({children}) => {
+const Paper = ({ children }) => {
   return (
-    <div class="paper">
-      <div class="paper-content">
-        <textarea autofocus>{children}</textarea>
+    <div className="paper">
+      <div className="paper-content">
+        <textarea autofocus value={children}></textarea>
       </div>
-      <div class="paper-footer">
+      <div className="paper-footer">
         <p>DOWNLOAD</p>
         <p>COPY</p>
         <p>CLEAR</p>

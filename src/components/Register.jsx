@@ -1,8 +1,4 @@
-import React from 'react'
-import classnames from "classnames";
-import { Link } from "react-router-dom";
-// JavaScript plugin that hides or shows a component based on your scroll
-import Headroom from "headroom.js";
+import React, { useState } from 'react';
 // reactstrap components
 import {
   Button,
@@ -16,15 +12,41 @@ import {
   InputGroupText,
   InputGroup,
 } from "reactstrap";
-import { useForm } from "react-hook-form";
+import { register } from 'api/user';
+import { toast } from 'react-toastify';
 
 const Register = () => {
-  const {  register, handleSubmit, formState: { errors }} = useForm();
 
+  const onSubmit = async(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const fullname = formData.get("fullname");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirm = formData.get("confirm");
+
+     if (!fullname || !email || !password || !email || !confirm) {
+         toast.error("Fill the required fields");
+         return;
+      }
+
+      if (password !== confirm) {
+         toast.error("Password Does Not Match");
+         return;
+      }
+    const user = { name:fullname, username:email, password }
   
-  const onSubmit = (data) => {
-    console.log(data)
+    register(user)
+      .then(response => {
+      toast.success("Login")
+    })
+    .catch(error => {
+      toast.error(error.message);
+    });
+
   }
+
+
 
   return (
     <div className="modal-body p-0">
@@ -32,8 +54,8 @@ const Register = () => {
         <CardHeader>
           <h2 className='text-uppercase text-center' >Sign up</h2>
         </CardHeader>
-          <CardBody className="px-lg-5 py-lg-5">
-          <Form method="POST" onSubmit={handleSubmit(onSubmit)}>
+          <CardBody className="px-lg-5 ">
+          <Form method="POST" onSubmit={onSubmit}>
             <FormGroup >
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -45,7 +67,6 @@ const Register = () => {
                     placeholder="Full Name"
                     type="text"
                     name="fullname"
-                    {...register("fullname")}
                   />
                 </InputGroup>
             </FormGroup>
@@ -60,7 +81,6 @@ const Register = () => {
                     placeholder="Email"
                   type="email"
                   name="email"
-                    {...register("email")}
                   />
                 </InputGroup>
               </FormGroup>
@@ -77,7 +97,6 @@ const Register = () => {
                     type="password"
                     autoComplete="off"
                     name="password"
-                    {...register("password")}
                   
                   />
                 </InputGroup>
@@ -94,7 +113,6 @@ const Register = () => {
                     type="password"
                     autoComplete="off"
                     name="confirm"
-                    {...register("confirm")}
                   />
                 </InputGroup>
               </FormGroup>

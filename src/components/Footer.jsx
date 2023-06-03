@@ -21,8 +21,6 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
-  Card,
-  CardImg,
   NavItem,
   NavLink,
   Nav,
@@ -112,7 +110,7 @@ class Footer extends React.Component {
                 <div className="copyright">
                   © {new Date().getFullYear()}{" "}
                   <a
-                    href="https://www.creative-tim.com?ref=adsr-footer"
+                    href="/"
                     target="_blank"
                   >
                     Creative Tim
