@@ -1,12 +1,10 @@
 import axios from "axios";
-import { getUserData } from "utils/auth";
 const API_URL = "http://127.0.0.1:5000/transcribe/";
 
-export const transcribeAudio = (file) => {
+export const transcribeAudio = (file, token) => {
   return new Promise((resolve, reject) => {
     const formData = new FormData();
     formData.append("file", file);
-    const { token } = getUserData();
 
     const config = {
       headers: {

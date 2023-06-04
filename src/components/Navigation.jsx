@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Headroom from "headroom.js";
 import {
   Button,
@@ -9,7 +9,6 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-  Media,
   NavbarBrand,
   Navbar,
   NavItem,
@@ -23,11 +22,14 @@ import {
 } from "reactstrap";
 import Login from "./Login";
 import Register from "./Register";
+import { UserContext } from "context/user";
 
 const Navigations = () => {
   const [collapseClasses, setCollapseClasses] = useState("");
   const [registerModal, setRegisterModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
+  const { user, clearUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const onExiting = () => {
     setCollapseClasses("collapsing-out");
@@ -37,13 +39,19 @@ const Navigations = () => {
     setCollapseClasses("");
   };
 
-  const toggleRegisterModal = (state) => {
+  const toggleRegisterModal = () => {
     setRegisterModal(!registerModal);
   };
 
-  const toggleLoginModal = (state) => {
+  const toggleLoginModal = () => {
     setLoginModal(!loginModal);
   };
+
+  const logout = () => {
+    clearUser();
+    navigate("/", { replace: true });
+    window.location.reload();
+  }
 
   useEffect(() => {
     let headroom = new Headroom(document.getElementById("navbar-main"));
@@ -184,29 +192,49 @@ const Navigations = () => {
                   </UncontrolledTooltip>
                 </NavItem>
                 <NavItem className="d-none d-lg-block ml-lg-4">
-                  <Button
-                    className="btn-neutral btn-icon"
-                    color="default"
-                    type="button"
-                    onClick={() => toggleRegisterModal("formModal")}
-                  >
+                  {
+                    user ? (
+                    <Button
+                    className="btn-icon"
+                    color="danger"
+                        type="button"
+                        onClick={logout}
+                      >
+                        <span className="btn-inner--icon">
+                              <i className="fa fa-sign-out mr-2" />
+                            </span>
                     <span className="nav-link-inner--text ml-1">
-                      Register
+                      Logout
                     </span>
                   </Button>
-                  <Button
-                    className="btn-outline-success btn-icon"
-                    type="button"
-                    onClick={() => toggleLoginModal("formModal")}
-                  >
-                    <span className="btn-inner--icon">
-                      <i className="fa fa-sign-in mr-2" />
-                    </span>
-                    <span className="nav-link-inner--text ml-1">
-                      sign in
-                    </span>
-                  </Button>
-                </NavItem>
+                    ): (
+                      <>
+                        <Button
+                            className="btn-neutral btn-icon"
+                            color="default"
+                            type="button"
+                            onClick={() => toggleRegisterModal("formModal")}
+                          >
+                            <span className="nav-link-inner--text ml-1">
+                              Register
+                            </span>
+                          </Button>
+                          <Button
+                            className="btn-outline-success btn-icon"
+                            type="button"
+                            onClick={() => toggleLoginModal("formModal")}
+                          >
+                            <span className="btn-inner--icon">
+                              <i className="fa fa-sign-in mr-2" />
+                            </span>
+                            <span className="nav-link-inner--text ml-1">
+                              sign in
+                            </span>
+                        </Button>
+                      </>
+                    )
+                  }
+                  </NavItem>
               </Nav>
             </UncontrolledCollapse>
           </Container>

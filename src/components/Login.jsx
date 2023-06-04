@@ -1,5 +1,7 @@
 import { login } from 'api/user';
-import React, { useState } from 'react';
+import { UserContext } from 'context/user';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 // reactstrap components
 import {
@@ -14,12 +16,11 @@ import {
   InputGroupText,
   InputGroup,
 } from "reactstrap";
-import { setUserData } from 'utils/auth';
 
 const Login = () => {
-
+  const navigate = useNavigate()
+  const {saveUser} =useContext(UserContext)
   const onSubmit = async (e) => {
-    
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
@@ -34,8 +35,9 @@ const Login = () => {
   
     login(user)
       .then(response => {
-        toast.success("You Logged In Successfully")
-        setUserData(response.data)
+        saveUser(response.data);
+          navigate("/", { replace: true });
+          window.location.reload();
       })
     .catch(error => {
       toast.error(error.message);

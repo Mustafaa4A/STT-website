@@ -12,11 +12,13 @@ import HomePage from "views/HomePage";
 import Transcribe from "views/Transcribe";
 import TranscribeAudio from "views/TranscribeAudio";
 import { ToastContainer } from "react-toastify";
+import UserProvider from "context/user";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <BrowserRouter>
+  <UserProvider>
+    <BrowserRouter>
     <ToastContainer
       position="top-right"
       autoClose={5000}
@@ -33,5 +35,6 @@ root.render(
       <Route path="/transcribe/audio" element={<TranscribeAudio />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
-    </BrowserRouter>
+  </BrowserRouter>
+  </UserProvider>
 );

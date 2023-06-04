@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Navigation from '../components/Navigation';
-
 
 // reactstrap components
 import {
@@ -15,14 +14,15 @@ import  'react-audio-player-pro/dist/style.css';
 import { useLocation, useNavigate } from "react-router-dom"
 import { transcribeAudio } from 'api/transcribe';
 import { toast } from 'react-toastify';
+import { UserContext } from 'context/user';
 
 
 const TranscribeAudio = () => {
   const navigate = useNavigate();
   let { state: audio } = useLocation()
   const [blob, setBlob] = useState();
-  const text = useRef(null);
   const [output, setOutput] = useState(null);
+  const { getUser } = useContext(UserContext);
 
   const  formatBytes = (bytes)=> {
     if (bytes < 1024) {
@@ -65,9 +65,8 @@ const TranscribeAudio = () => {
   }
 
   const transcribe = () => {
-    // text.current.value = "I'm here to help you";
-    // console.log(text.current)
-    transcribeAudio(audio)
+    const  token  = getUser()?.token || '';
+    transcribeAudio(audio, token)
       .then(response => {
         setOutput(response.data)
       })
@@ -112,7 +111,7 @@ const TranscribeAudio = () => {
               </div>
               </Col>
               <Col md="7" sm="12" className="mt-4">
-              <Paper>{output && output}</Paper>
+              <Paper clear={()=>setOutput(null)}>{output && output}</Paper>
               </Col>
             </Row>
           

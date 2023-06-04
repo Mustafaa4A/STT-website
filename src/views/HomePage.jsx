@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navigation from '../components/Navigation';
 import Main from 'components/Main';
 
@@ -11,8 +11,11 @@ import {
   Col
 } from "reactstrap";
 import Footer from 'components/Footer';
+import { UserContext } from 'context/user';
   
 const HomePage = () => {
+  // const { getUser:{user} } = useContext(UserContext);
+  // console.log();
   return (
     <>
       <Navigation />
