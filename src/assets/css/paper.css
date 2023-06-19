@@ -56,8 +56,10 @@
     bottom: 23px;
     text-align: center;
 }
-
-.paper .paper-footer P{
+.paper .paper-footer div{
+    cursor: pointer;
+}
+.paper .paper-footer p{
     cursor: pointer;
     font-size: 13px;
     font-weight: bold;

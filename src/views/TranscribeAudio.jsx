@@ -16,6 +16,9 @@ import { transcribeAudio } from 'api/transcribe';
 import { toast } from 'react-toastify';
 import { UserContext } from 'context/user';
 
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import '../assets/css/bar.css'
 
 const TranscribeAudio = () => {
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ const TranscribeAudio = () => {
   const [blob, setBlob] = useState();
   const [output, setOutput] = useState(null);
   const { getUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const  formatBytes = (bytes)=> {
     if (bytes < 1024) {
@@ -59,24 +63,46 @@ const TranscribeAudio = () => {
 
   },[audio]);
 
+  useEffect(() => { 
+    if (!getUser()) {
+      toast.warning("Please Login🙌");
+    }
+  },[])
+
   const goBack = () => {
     audio = undefined;
     navigate("/transcribe");
   }
 
   const transcribe = () => {
-    const  token  = getUser()?.token || '';
+    if (!getUser()) {
+      toast.error("Login required for transcribe🔑");
+      return;
+    }
+    const token = getUser()?.token || '';
+
+    setLoading(true);
     transcribeAudio(audio, token)
       .then(response => {
         setOutput(response.data)
       })
       .catch(error => {
         toast.error(error.message);
-    });
+      });
+    setLoading(false);
+  }
+
+  const style = {
+    
   }
 
   return (
     <>
+      {/* <div style={{width:'100%', height:'100vh', position:'absolute', zIndex:999, display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <div style={{width:'200px', height:'200px'}}>
+          <CircularProgressbar value={12} />
+        </div>
+      </div> */}
       <Navigation />
       <main >
         <section className="section section-lg section-shaped" >
@@ -85,7 +111,7 @@ const TranscribeAudio = () => {
             <Col md="1" sm="10"></Col>
               <Col md="4" sm="10" xs="10" className="bg-white m-auto">
               <div className='d-flex flex-column justify-content-center' style={{minHeight:"70vh"}}>
-                <h3 class="my-4 text-center text-uppercase">Speech to Text</h3>
+                <h3 className="my-4 text-center text-uppercase">Speech to Text</h3>
                 <div>
                   <h6 className="font-weight-bold border-bottom pb-2">Audio Information</h6>
                   <div className="pl-3">

@@ -39,7 +39,7 @@ const HomePage = () => {
               <Col lg="8" className="my-2 text-center">
                   <h3 className="display-3">How to Convert Voice to Text</h3>
                   <p className="lead text-muted">
-                   PPPP offers a voice to text software that enables you to transcribe your spoken words with ease, requiring only a few steps.
+                   Somali STT offers a voice to text software that enables you to transcribe your spoken words with ease, requiring only a few steps.
                   </p>
                 </Col>
                 <Col lg="12">
@@ -54,7 +54,7 @@ const HomePage = () => {
                             Upload audio file
                           </h6>
                           <p className="description mt-3">
-                            Choose any of the acceptable voice formats and drag and drop your audio or video file into the PPP dashboard.
+                            Choose any of the acceptable voice formats and drag and drop your audio or video file into the Somali STT dashboard.
                           </p>
                         </CardBody>
                       </Card>
@@ -84,7 +84,7 @@ const HomePage = () => {
                             Export the file
                           </h6>
                           <p className="description mt-3">
-                           It's done! Choose either PDF or DOCX format and download your transcription
+                           It's done! download your transcription DOCX or copy into clip board
                           </p>
                         </CardBody>
                       </Card>

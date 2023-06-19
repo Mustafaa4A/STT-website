@@ -3,6 +3,8 @@ import { UserContext } from 'context/user';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import githubIcon from 'assets/img/icons/common/github.svg'
+import googleIcon from 'assets/img/icons/common/google.svg'
 // reactstrap components
 import {
   Button,
@@ -62,7 +64,7 @@ const Login = () => {
               <span className="btn-inner--icon mr-1">
                 <img
                   alt="..."
-                  src={require("assets/img/icons/common/github.svg")}
+                  src={githubIcon}
                 />
               </span>
               <span className="btn-inner--text">Github</span>
@@ -76,7 +78,7 @@ const Login = () => {
               <span className="btn-inner--icon mr-1">
                 <img
                   alt="..."
-                  src={require("assets/img/icons/common/google.svg")}
+                  src={googleIcon}
                 />
               </span>
               <span className="btn-inner--text">Google</span>
