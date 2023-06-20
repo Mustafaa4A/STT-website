@@ -15,10 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { transcribeAudio } from 'api/transcribe';
 import { toast } from 'react-toastify';
 import { UserContext } from 'context/user';
-
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import '../assets/css/bar.css'
+import Loading from 'components/Loading';
 
 const TranscribeAudio = () => {
   const navigate = useNavigate();
@@ -92,17 +89,11 @@ const TranscribeAudio = () => {
     setLoading(false);
   }
 
-  const style = {
-    
-  }
+ 
 
   return (
     <>
-      {/* <div style={{width:'100%', height:'100vh', position:'absolute', zIndex:999, display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <div style={{width:'200px', height:'200px'}}>
-          <CircularProgressbar value={12} />
-        </div>
-      </div> */}
+      {loading && <Loading />}
       <Navigation />
       <main >
         <section className="section section-lg section-shaped" >
