@@ -24,7 +24,7 @@ const Paper = ({ children, clear }) => {
           <p>DOWNLOAD</p>
         </div>
         <UncontrolledTooltip delay={0} target="toolt00">
-          DOWNLOAD AS WORD    
+          DOWNLOAD AS WORD DOC  
         </UncontrolledTooltip>
         <div onClick={() => navigator.clipboard.writeText(children)}  id="toolkit90">
           <p>COPY</p>

@@ -81,12 +81,14 @@ const TranscribeAudio = () => {
     setLoading(true);
     transcribeAudio(audio, token)
       .then(response => {
-        setOutput(response.data)
+        setOutput(response.data);
+        setLoading(false);
       })
       .catch(error => {
         toast.error(error.message);
+        setLoading(false);
       });
-    setLoading(false);
+    
   }
 
  
